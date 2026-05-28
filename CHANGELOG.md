@@ -6,3 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.0.1] — 2026-05-28
+
+### Added
+- Re-export `get_commits` and `open_repo` at the top level of `coupling_core`.
+  Consumers can now write `from coupling_core import get_commits, open_repo`
+  instead of `from coupling_core.git_parser import ...`. Additive,
+  non-breaking — the submodule path continues to work identically.
