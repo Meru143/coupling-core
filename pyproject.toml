@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "coupling-core"
-version = "1.0.0"
+version = "1.0.1"
 description = "Shared library for git co-change matrix analysis, normalization, and coupling scoring."
 readme = "README.md"
 license = { file = "LICENSE" }

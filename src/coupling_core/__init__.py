@@ -1,4 +1,4 @@
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 
 from coupling_core.analyzer import analyze_pr_files, analyze_repo, classify_risk
 from coupling_core.git_parser import (
