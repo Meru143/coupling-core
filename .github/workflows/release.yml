@@ -30,11 +30,21 @@ jobs:
         uses: python-semantic-release/python-semantic-release@v10
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          # The action's own runtime doesn't ship `build`, so its built-in
+          # `python -m build` step fails. We build separately below.
+          build: false
 
-      # PyPI publish requires a Trusted Publisher to be configured for
-      # this repo at https://pypi.org/manage/account/publishing/ . The
-      # step is gated on a new release being cut so the workflow stays
-      # green between releases.
+      # Build only when semantic-release decided to cut a new version.
+      - name: Build distributions
+        if: steps.release.outputs.released == 'true'
+        run: |
+          python -m pip install --upgrade pip build
+          python -m build
+
+      # PyPI publish requires a Trusted Publisher to be configured at
+      # https://pypi.org/manage/account/publishing/ before this step
+      # can succeed. Gated on a fresh release so the workflow stays
+      # green between releases and on docs/chore commits.
       - name: Publish to PyPI
         if: steps.release.outputs.released == 'true'
         uses: pypa/gh-action-pypi-publish@release/v1
